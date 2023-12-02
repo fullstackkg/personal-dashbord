@@ -1,2 +1,2 @@
 # personal-dashbord
- A clone of the popular Momentum dashboard
+ A clone of the popular Momentum dashboard Chrome extension 
