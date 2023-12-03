@@ -1,15 +1,18 @@
 document.body.addEventListener("load", retrieveImage())
 
 //Retrieving photo from UnSplash 
-function retrieveImage() {
-    fetch("https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=galaxy")
-    .then(res => res.json())
-    .then(data => {
-        const authorName = data.user.name
-        const image = data.urls.full
-        const p = document.createElement("p")
-        p.innerText = authorName
-        document.body.append(p)
+async function retrieveImage() {
+    try {
+        const response = await fetch("https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=galaxy")
+        const responseData = await response.json()
+        console.log(responseData)
+
+        const authorName = responseData.user.name
+        const image = responseData.urls.full
+        document.querySelector("#author").innerText = `By: ${authorName}`
         document.body.style.backgroundImage = `url("${image}")`
-    })
+
+    } catch (e) {
+        console.error(e)
+    }
 }
