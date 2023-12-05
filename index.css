@@ -1,8 +1,5 @@
 *, *::after, *::before {
     box-sizing: border-box;
-}
-
-html, body {
     margin: 0;
     padding: 0;
 }
@@ -29,8 +26,45 @@ main {
 .top-div {
     display: flex;
     justify-content: space-between;
+    flex: 1;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-top: 1em;
+    border: 2px solid red;
 }
 
 .time {
     align-self: center;
+    flex: 1;
+    border: 2px solid blue;
+}
+
+.coin-data {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.coin-data-top {
+    display: flex;
+    gap: 0.5em;
+}
+
+.coin-data-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+#coin-name {
+    align-self: center;
+}
+
+#author {
+    /* flex: 1; */
+    align-self: flex-start;
+    text-align: ver;
+    padding-top: 1em;
+    padding-left: 2em;
+    border: 2px solid green;
 }
