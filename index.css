@@ -13,7 +13,8 @@ body {
     background-size: cover;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-    text-shadow: 0px 0px 20px #aaaaaa;
+    text-shadow: 0px 0px 20px #817f7f;
+    font-size: 1.25rem;
 }
 
 main {
@@ -30,13 +31,13 @@ main {
     padding-left: 2em;
     padding-right: 2em;
     padding-top: 1em;
-    border: 2px solid red;
 }
 
 .time {
-    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex: 1;
-    border: 2px solid blue;
 }
 
 .coin-data {
@@ -61,10 +62,39 @@ main {
 }
 
 #author {
-    /* flex: 1; */
-    align-self: flex-start;
-    text-align: ver;
-    padding-top: 1em;
+    display: flex;
+    align-items: flex-end;
+    flex: 1;
     padding-left: 2em;
-    border: 2px solid green;
+    padding-right: 2em;
+    padding-bottom: 1em;
+}
+
+.weather-data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    column-gap: 0.5em;
+    align-self: flex-start;
+    justify-items: start;
+    align-items: start;
+}
+
+#weather-city {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    align-self: self-start;
+}
+
+#weather-temp {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    font-size: 1.75rem;
+}
+
+#weather-icon {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
 }
