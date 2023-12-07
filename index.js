@@ -198,11 +198,3 @@ async function retrieveQuote() {
     }
 
 }
-
-
-retrieveImage()
-retrieveWeather()
-returnCoinPrices()
-retrieveQuote()
-setInterval(renderTime, 1000)
-setInterval(renderDate, 1000)
