@@ -1,5 +1,5 @@
 
-// Retrieving photo from UnSplash 
+// Retrieving photo from UnSplash API
 async function retrieveImage() {
     try {
 
@@ -19,7 +19,7 @@ async function retrieveImage() {
     }
 }
 
-// Retrieve information about the coin 
+// Retrieve coin information from the Coin Gecko API
 async function returnCoinPrices() {
     try {
 
@@ -106,12 +106,12 @@ function renderDate() {
     document.querySelector(".date").innerText = date.toLocaleString('en-US', options)
 }
 
-//Retrieve the current geolocation of the user 
+//Retrieve the current geolocation using the OpenWeather API
 navigator.geolocation.getCurrentPosition(position => {
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=61dd6de9dde9b9d94cd3692a53813c04`)
     .then(response => {
         if(!response.ok) {
-            throw Error("Weather data not available")
+            throw new Error("Weather data not available")
         }
         
         return response.json()
@@ -125,8 +125,27 @@ navigator.geolocation.getCurrentPosition(position => {
 })
 
 
+//Retrieving quote from the Quote API 
+async function retrieveQuote() {
+    try {
+        
+        const response = await fetch("https://api.quotable.io/quotes/random")
+        console.log(response)
+        if(response.status !== 200) {
+            throw new Error()
+        }
+
+        const data = await response.json()
+        document.querySelector("#quote").innerText = `"${data[0].content}" - ${data[0].author}`
+
+    } catch (e) {
+        document.querySelector("#quote").innerText = '"We make a living by what we get, but we make a life by what we give." - Winston Churchill'
+    }
+}
+
 
 retrieveImage()
 returnCoinPrices()
+retrieveQuote()
 setInterval(renderTime, 1000)
 setInterval(renderDate, 1000)
