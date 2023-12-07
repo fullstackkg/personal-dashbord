@@ -1,17 +1,24 @@
-// Load entire page before calling all other functions
+// // Load entire page before calling all other functions
+loadData()
+
 async function loadData() {
     try {
-        await changeBackground()
-        setInterval(renderTime, 1000)
-        setInterval(renderDate, 1000)
         await retrieveImage()
+        setInterval(renderDate, 1000)
+        setInterval(renderTime, 1000)
         await retrieveWeather()
         await returnCoinPrices()
         await retrieveQuote()
     } catch (e) {
         console.error(e)
     }
-  }
+}
+// retrieveImage()
+// retrieveWeather()
+// returnCoinPrices()
+// retrieveQuote()
+// setInterval(renderDate, 1000)
+// setInterval(renderTime, 1000)
 
 
 // Retrieving photo from UnSplash API
