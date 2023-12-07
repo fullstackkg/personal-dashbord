@@ -1,6 +1,22 @@
+// Load entire page before calling all other functions
+async function loadData() {
+    try {
+        await changeBackground()
+        setInterval(renderTime, 1000)
+        setInterval(renderDate, 1000)
+        await retrieveImage()
+        await retrieveWeather()
+        await returnCoinPrices()
+        await retrieveQuote()
+    } catch (e) {
+        console.error(e)
+    }
+  }
+
 
 // Retrieving photo from UnSplash API
 async function retrieveImage() {
+
     try {
 
         const response = await fetch("https://api.unsplash.com/photos/random?client_id=wMbFUY04yOZJdJpCMN_0Gz0JZSqdQae8U4NTzlAXiSg&orientation=landscape&query=galaxy")
@@ -17,10 +33,13 @@ async function retrieveImage() {
         document.querySelector("#author").innerText = "By: Alexander Andrews"
 
     }
+
 }
+
 
 // Retrieve coin information from the Coin Gecko API
 async function returnCoinPrices() {
+
     try {
 
         const response = await fetch("https://api.coingecko.com/api/v3/coins/bitcoin")
@@ -83,19 +102,22 @@ async function returnCoinPrices() {
         console.error(error)
     
     }
+
 }
+
 
 //Update the time every second
 function renderTime() {
+
     const date = new Date()
     document.querySelector(".time").innerText = date.toLocaleTimeString("en-us", {timeStyle:"short"})
+
 }
 
 
-
-console.log()
 //Update the date every 24 hours
 function renderDate() {
+
     const date = new Date()
     const options = {
         weekday: "long", 
@@ -104,33 +126,64 @@ function renderDate() {
         day: "numeric"
     }
     document.querySelector(".date").innerText = date.toLocaleString('en-US', options)
+
 }
 
-//Retrieve the current geolocation using the OpenWeather API
-navigator.geolocation.getCurrentPosition(position => {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=61dd6de9dde9b9d94cd3692a53813c04`)
-    .then(response => {
-        if(!response.ok) {
-            throw new Error("Weather data not available")
-        }
-        
-        return response.json()
+
+//Returns the geolocation of coordinates so we can input into weather API
+function returnCoordinates() {
+
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(position => {
+                const coordinatesObj = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                }
+
+                resolve(coordinatesObj)
+            },
+
+            function(error) {
+                reject(error)
+            }
+        )        
     })
-    .then(data => {
+
+}
+
+
+//Retrieve the weather from user area using the OpenWeather API
+async function retrieveWeather() {
+
+    try {
+
+        const coordinates = await returnCoordinates()
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${coordinates.latitude}&lon=${coordinates.longitude}&units=metric&appid=61dd6de9dde9b9d94cd3692a53813c04`)
+        if(!response.ok) {
+            throw new Error("Weather currently unavailable")
+        }
+
+        const data = await response.json()
+
         document.querySelector("#weather-icon").src = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`
         document.querySelector("#weather-city").innerText = `${data.name}`
         document.querySelector("#weather-temp").innerText = `${Math.round(data.main.temp)}°`
-    })
-    .catch(error => console.error(error))
-})
+
+    } catch (e) {
+
+        console.error(e)
+
+    }
+
+}
 
 
 //Retrieving quote from the Quote API 
 async function retrieveQuote() {
+
     try {
         
         const response = await fetch("https://api.quotable.io/quotes/random")
-        console.log(response)
         if(response.status !== 200) {
             throw new Error()
         }
@@ -139,12 +192,16 @@ async function retrieveQuote() {
         document.querySelector("#quote").innerText = `"${data[0].content}" - ${data[0].author}`
 
     } catch (e) {
+
         document.querySelector("#quote").innerText = '"We make a living by what we get, but we make a life by what we give." - Winston Churchill'
+    
     }
+
 }
 
 
 retrieveImage()
+retrieveWeather()
 returnCoinPrices()
 retrieveQuote()
 setInterval(renderTime, 1000)
