@@ -3,8 +3,10 @@
     "name" : "Personal Dashboard",
     "version" : "1.0.0",
     "description" : "A customized dashboard display",
-    "action" : {
-        "default_icon" : "dashboard-icon.svg"
+    "icons" : { 
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
     },
     "chrome_url_overrides" : {
         "newtab" : "index.html"

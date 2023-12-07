@@ -91,6 +91,21 @@ function renderTime() {
     document.querySelector(".time").innerText = date.toLocaleTimeString("en-us", {timeStyle:"short"})
 }
 
+
+
+console.log()
+//Update the date every 24 hours
+function renderDate() {
+    const date = new Date()
+    const options = {
+        weekday: "long", 
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    }
+    document.querySelector(".date").innerText = date.toLocaleString('en-US', options)
+}
+
 //Retrieve the current geolocation of the user 
 navigator.geolocation.getCurrentPosition(position => {
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=61dd6de9dde9b9d94cd3692a53813c04`)
@@ -102,7 +117,6 @@ navigator.geolocation.getCurrentPosition(position => {
         return response.json()
     })
     .then(data => {
-        console.log(data)
         document.querySelector("#weather-icon").src = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`
         document.querySelector("#weather-city").innerText = `${data.name}`
         document.querySelector("#weather-temp").innerText = `${Math.round(data.main.temp)}°`
@@ -115,3 +129,4 @@ navigator.geolocation.getCurrentPosition(position => {
 retrieveImage()
 returnCoinPrices()
 setInterval(renderTime, 1000)
+setInterval(renderDate, 1000)

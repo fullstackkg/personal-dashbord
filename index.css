@@ -33,8 +33,18 @@ main {
 .time {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding-top: 1em;
     flex: 1;
+    font-size: 2rem;
+}
+
+.date {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 2rem;
 }
 
 .coin-data {
