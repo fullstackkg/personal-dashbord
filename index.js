@@ -129,4 +129,4 @@ navigator.geolocation.getCurrentPosition(position => {
 retrieveImage()
 returnCoinPrices()
 setInterval(renderTime, 1000)
-setInterval(renderDate, 1000)
+setInterval(renderDate, 60 * 1000)
