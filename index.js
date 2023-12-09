@@ -2,16 +2,22 @@
 loadData()
 
 async function loadData() {
+
     try {
+
         await retrieveImage()
-        setInterval(renderDate, 1000)
-        setInterval(renderTime, 1000)
+        await setInterval(renderDate, 1000)
+        await setInterval(renderTime, 1000)
         await retrieveWeather()
         await returnCoinPrices()
         await retrieveQuote()
+
     } catch (e) {
+
         console.error(e)
+
     }
+    
 }
 
 
@@ -24,7 +30,7 @@ async function retrieveImage() {
         const responseData = await response.json()
 
         const authorName = responseData.user.name
-        const image = responseData.urls.full
+        const image = responseData.urls.regular
         document.body.style.backgroundImage = `url("${image}")`
         document.querySelector("#author").innerText = `By: ${authorName}`
 
