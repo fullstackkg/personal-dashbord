@@ -6,8 +6,10 @@ async function loadData() {
     try {
 
         await retrieveImage()
-        await setInterval(renderDate, 1000)
-        await setInterval(renderTime, 1000)
+        renderTime()
+        renderDate()
+        setInterval(renderTime, 1000)
+        setInterval(renderDate, 60 * 60 * 1000)
         await retrieveWeather()
         await returnCoinPrices()
         await retrieveQuote()
@@ -17,7 +19,7 @@ async function loadData() {
         console.error(e)
 
     }
-    
+
 }
 
 
