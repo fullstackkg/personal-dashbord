@@ -13,12 +13,6 @@ async function loadData() {
         console.error(e)
     }
 }
-// retrieveImage()
-// retrieveWeather()
-// returnCoinPrices()
-// retrieveQuote()
-// setInterval(renderDate, 1000)
-// setInterval(renderTime, 1000)
 
 
 // Retrieving photo from UnSplash API
