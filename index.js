@@ -137,17 +137,10 @@ document.addEventListener('click', (e) => {
 
       const searchInput = document.getElementById('coin-search')
       const coinData = document.getElementById('coin-data')
+
+      searchInput.focus({ focusVisible: true })
+
       searchInput.addEventListener('keydown', async (e) => {
-        const allCoinsList = await fetch(
-          `https://api.coingecko.com/api/v3/coins/list`
-        )
-        const response = await allCoinsList.json()
-        console.log(response)
-        // for (const key in response) {
-        //   if (Object.hasOwnProperty.call(object, key)) {
-        //     const element = object[key]
-        //   }
-        // }
         if (e.key === 'Enter' && searchInput.value.trim() !== '') {
           coinData.remove()
           returnCoinPrices(searchInput.value)
@@ -155,7 +148,7 @@ document.addEventListener('click', (e) => {
       })
 
       searchInput.addEventListener('focusout', () => {
-        newCoinSearch.replaceWith(oldCoinEl)
+        newCoinSearch.replaceWith(oldCoinValue)
       })
     }
   }
