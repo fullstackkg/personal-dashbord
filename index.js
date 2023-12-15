@@ -125,22 +125,39 @@ async function returnCoinPrices(coin = 'bitcoin') {
 // Eventlistener for to change coins
 document.addEventListener('click', (e) => {
   if (e.target.id === 'coin-img') {
-    const newCoin = document.createElement('input')
-    newCoin.placeholder = 'Search coins'
-    newCoin.setAttribute('type', 'search')
-    newCoin.setAttribute('id', 'coin-search')
+    if (!document.querySelector('#coin-search')) {
+      const newCoinSearch = document.createElement('input')
+      newCoinSearch.placeholder = 'Search coins'
+      newCoinSearch.setAttribute('type', 'search')
+      newCoinSearch.setAttribute('id', 'coin-search')
 
-    const oldCoin = document.getElementById('coin-name')
-    oldCoin.replaceWith(newCoin)
+      const oldCoinEl = document.getElementById('coin-name')
+      const oldCoinValue = oldCoinEl
+      oldCoinEl.replaceWith(newCoinSearch)
 
-    const searchInput = document.getElementById('coin-search')
-    const coinData = document.getElementById('coin-data')
-    searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && searchInput.value.trim() !== '') {
-        coinData.remove()
-        returnCoinPrices(searchInput.value)
-      }
-    })
+      const searchInput = document.getElementById('coin-search')
+      const coinData = document.getElementById('coin-data')
+      searchInput.addEventListener('keydown', async (e) => {
+        const allCoinsList = await fetch(
+          `https://api.coingecko.com/api/v3/coins/list`
+        )
+        const response = await allCoinsList.json()
+        console.log(response)
+        // for (const key in response) {
+        //   if (Object.hasOwnProperty.call(object, key)) {
+        //     const element = object[key]
+        //   }
+        // }
+        if (e.key === 'Enter' && searchInput.value.trim() !== '') {
+          coinData.remove()
+          returnCoinPrices(searchInput.value)
+        }
+      })
+
+      searchInput.addEventListener('focusout', () => {
+        newCoinSearch.replaceWith(oldCoinEl)
+      })
+    }
   }
 })
 
