@@ -1,6 +1,5 @@
 const topDiv = document.querySelector('.top-div')
 const bottomDiv = document.querySelector('.bottom-div')
-let coinsList = []
 
 // Load entire page before calling all other functions
 document.addEventListener('DOMContentLoaded', async () => {
@@ -77,25 +76,6 @@ async function returnCoinPrices(coin = 'bitcoin') {
       coinImageEl.setAttribute('alt', 'image-of-coin')
       coinImageEl.src = image.small
 
-      const coinNameDiv = document.createElement('div')
-      coinNameDiv.setAttribute('id', 'coin-name-div')
-
-      const coinSearchDiv = document.createElement('div')
-      coinSearchDiv.setAttribute('id', 'coin-search-div')
-
-      const dummyText1 = document.createElement('p')
-      dummyText1.innerText = 'This is coin #1'
-      const dummyText2 = document.createElement('p')
-      dummyText2.innerText = 'This is coin #2'
-      const dummyText3 = document.createElement('p')
-      dummyText3.innerText = 'This is coin #3'
-      const dummyText4 = document.createElement('p')
-      dummyText4.innerText = 'This is coin #4'
-      const dummyText5 = document.createElement('p')
-      dummyText5.innerText = 'This is coin #5'
-      const dummyText6 = document.createElement('p')
-      dummyText6.innerText = 'This is coin #6'
-
       const coinNameEl = document.createElement('p')
       coinNameEl.setAttribute('id', 'coin-name')
       coinNameEl.innerText = name
@@ -131,8 +111,7 @@ async function returnCoinPrices(coin = 'bitcoin') {
       )}`
 
       coinImageLink.append(coinImageEl)
-      coinNameDiv.append(coinNameEl, coinSearchDiv)
-      coinDataTop.append(coinImageLink, coinNameDiv)
+      coinDataTop.append(coinImageLink, coinNameEl)
       coinDataBottom.append(currentPrice, coin24high, coin24low)
       coinData.append(coinDataTop, coinDataBottom)
       topDiv.prepend(coinData)
@@ -173,104 +152,11 @@ document.addEventListener('click', (e) => {
       })
 
       searchInput.addEventListener('focusout', () => {
-        searchInput.value = ''
         searchInput.replaceWith(oldCoinEl)
-        const coinSearchDiv = document.querySelector('#coin-search-div')
-        coinSearchDiv.innerHTML = ''
-      })
-
-      searchInput.addEventListener('input', () => {
-        const input = searchInput.value
-        const coinSearchDiv = document.querySelector('#coin-search-div')
-        if (input.length > 0 && input.trim() !== '') {
-          coinSearchDiv.style.opacity = 1
-          coinSearchDiv.style.pointerEvents = 'auto'
-          const filteredCoins = searchCoins(input, coinsList)
-          renderSearch(filteredCoins)
-        } else {
-          coinSearchDiv.style.opacity = 1
-          coinSearchDiv.style.pointerEvents = 'none'
-          coinSearchDiv.innerHTML = ''
-        }
       })
     }
   }
 })
-
-// if (!document.querySelector('#coin-search')) {
-//     const coinData = document.getElementById('coin-data')
-
-//     coinSearch = document.createElement('input')
-//     coinSearch.placeholder = 'Search coins'
-//     coinSearch.setAttribute('type', 'search')
-//     coinSearch.setAttribute('id', 'coin-search')
-
-//     oldCoinEl.replaceWith(coinSearch)
-//     const searchInput = document.getElementById('coin-search')
-
-//     searchInput.focus({ focusVisible: true })
-
-//     searchInput.addEventListener('keyup', async (e) => {
-//       try {
-//         if (e.key === 'Enter' && searchInput.value.trim() !== '') {
-//           coinData.remove()
-//           returnCoinPrices(searchInput.value.toLowerCase())
-//         }
-//       } catch (error) {
-//         console.error('Error fetching data:', error)
-//       }
-//     })
-
-//     searchInput.addEventListener('focusout', () => {
-//       coinSearch.value = ''
-//       coinSearch.replaceWith(oldCoinValue)
-//     })
-
-//     searchInput.addEventListener('input', () => {
-//       const input = searchInput.value
-//       const search = document.querySelector('#coin-search-div')
-//       if (input.length > 0 && input.trim() !== '') {
-//         const filteredCoins = searchCoins(input, coinsList)
-//         renderSearch(filteredCoins)
-//       } else {
-//         search.innerHTML = ''
-//       }
-//     })
-//   } else {
-//     coinSearch.replaceWith(oldCoinValue)
-//   }
-
-// Function fetch coin list data from API
-async function returnCoinList() {
-  try {
-    const response = await fetch('https://api.coingecko.com/api/v3/coins/list')
-    const data = await response.json()
-    coinsList = data.map((coin) => coin.name)
-    coinsList.sort()
-  } catch (error) {
-    console.error('Error fetching data:', error)
-  }
-}
-
-returnCoinList()
-
-// Function to filter through coins as user types
-function searchCoins(input, arr) {
-  return arr
-    .filter((coin) => coin.toLowerCase().startsWith(input.toLowerCase()))
-    .slice(0, 10)
-}
-
-// Function to render dynamic search to the screen
-function renderSearch(coinArr) {
-  const search = document.querySelector('#coin-search-div')
-  search.innerHTML = ''
-  return coinArr.forEach((coin) => {
-    const coinEl = document.createElement('p')
-    coinEl.innerText = coin
-    search.append(coinEl)
-  })
-}
 
 //Update the time every second
 function renderTime() {

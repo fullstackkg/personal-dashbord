@@ -48,7 +48,8 @@ main {
 
 .coin-data-top {
   display: flex;
-  gap: 0.25rem;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .coin-data-bottom {
@@ -57,46 +58,8 @@ main {
   gap: 1rem;
 }
 
-#coin-name {
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
-}
-
 #coin-img-link {
   align-self: flex-start;
-}
-
-#coin-search-div {
-  position: absolute;
-  top: 2.6em;
-  border-radius: 5px;
-  padding: 0.25rem;
-  overflow-y: auto;
-  background: white;
-  opacity: 0;
-  pointer-events: none;
-}
-
-#coin-search-div.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-#coin-search-div > * {
-  padding: 0.25rem;
-  cursor: pointer;
-  color: black;
-}
-
-#coin-search-div > *:hover {
-  background: #efefef;
-}
-
-#coin-name-div {
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  margin-top: calc((50px - 30.4px) / 2);
 }
 
 .middle-div {
