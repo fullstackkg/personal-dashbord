@@ -27,9 +27,9 @@ main {
   display: flex;
   justify-content: space-between;
   flex: 1;
-  padding-left: 2em;
-  padding-right: 2em;
-  padding-top: 1em;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 1rem;
 }
 
 .coin-data {
@@ -39,28 +39,64 @@ main {
 }
 
 #coin-search {
-  align-self: center;
-  font-size: 1.25rem;
-  height: 70%;
-  padding-left: 0.5em;
+  font-size: 1.5rem;
+  padding: 0.25rem;
   outline: none;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
 }
 
 .coin-data-top {
   display: flex;
-  gap: 0.5em;
+  gap: 0.25rem;
 }
 
 .coin-data-bottom {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 1rem;
 }
 
 #coin-name {
-  align-self: center;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+#coin-img-link {
+  align-self: flex-start;
+}
+
+#coin-search-div {
+  position: absolute;
+  top: 2.6em;
+  border-radius: 5px;
+  padding: 0.25rem;
+  overflow-y: auto;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#coin-search-div.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#coin-search-div > * {
+  padding: 0.25rem;
+  cursor: pointer;
+  color: black;
+}
+
+#coin-search-div > *:hover {
+  background: #efefef;
+}
+
+#coin-name-div {
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  margin-top: calc((50px - 30.4px) / 2);
 }
 
 .middle-div {
@@ -69,7 +105,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.5em;
+  gap: 0.5rem;
 }
 
 .bottom-div {
@@ -77,9 +113,9 @@ main {
   flex: 1;
   align-items: flex-end;
   justify-content: space-between;
-  padding-bottom: 1em;
-  padding-left: 2em;
-  padding-right: 2em;
+  padding-bottom: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 #author {
